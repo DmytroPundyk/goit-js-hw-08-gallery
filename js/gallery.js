@@ -1,4 +1,4 @@
-import galleryItems from "./app.js";
+
 
 const refs = {
    galleryContainerEl: document.querySelector(".js-gallery"),
