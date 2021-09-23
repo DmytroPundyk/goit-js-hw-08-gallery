@@ -8,6 +8,7 @@ const refs = {
    closeLightBoxBtnEl: document.querySelector(`[data-action = "close-lightbox"]`),
    
 };
+
 const imagesListMarkup = galleryItems
    .map(({ preview, original, description },) =>
       `<li class="gallery__item">
@@ -24,6 +25,7 @@ const imagesListMarkup = galleryItems
 ).join("");
    
 refs.galleryContainerEl.insertAdjacentHTML("afterbegin", imagesListMarkup);
+
 
 function openOverlayClick(evt) {
   evt.preventDefault();
@@ -46,7 +48,49 @@ function closeOverlayClick(evt) {
   if (evt.target.nodeName === "DIV") {
      refs.lightBoxContainerEl.classList.remove("is-open");
   }
+  if (refs.lightBoxContainerEl.classList.contains("is-open")) {
+    if (evt.code === "Escape") {
+      refs.lightBoxContainerEl.classList.remove("is-open"); 
+    }
+  }
 };
 refs.closeLightBoxBtnEl.addEventListener("click", closeOverlayClick);
 refs.overlayBox.addEventListener("click", closeOverlayClick);
-   
+document.addEventListener("keydown", closeOverlayClick);
+
+
+const imgEl = document.querySelector(".gallery__image");
+
+document.addEventListener("keydown", evt => {
+  if (refs.lightBoxContainerEl.classList.contains("is-open")) {
+ const mapGalleryItemEl = galleryItems.map(value => value.original);
+ const currentIndex = Number(mapGalleryItemEl.indexOf(refs.imageLightBoxEl.src));
+ const mapItemLastEl = Number(mapGalleryItemEl.length) - 1;
+  
+  if (evt.code === "ArrowLeft") {
+    if (evt.target.classList === imgEl.classList) {
+      return;
+    }
+    const indexLeftEl = currentIndex - 1;
+    refs.imageLightBoxEl.src = mapGalleryItemEl[indexLeftEl];
+    if (currentIndex === 0) {
+      refs.imageLightBoxEl.src = mapGalleryItemEl[mapItemLastEl];
+    }
+  
+    }
+    if (evt.code === "ArrowRight") {
+      if (evt.target.classList === imgEl.classList) {
+        return;
+      }
+      const indexRigthEl = currentIndex + 1;
+      refs.imageLightBoxEl.src = mapGalleryItemEl[indexRigthEl];
+      if (indexRigthEl === mapGalleryItemEl.length) {
+        refs.imageLightBoxEl.src = mapGalleryItemEl[0];
+      }
+  }
+  }
+});
+
+
+
+
