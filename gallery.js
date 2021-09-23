@@ -59,6 +59,9 @@ document.addEventListener("keydown", closeOverlayClick);
 
 const imgEl = document.querySelector(".gallery__image");
 
+
+
+ // Кнопки влево, вправо //
 document.addEventListener("keydown", evt => {
   if (refs.lightBoxContainerEl.classList.contains("is-open")) {
  const mapGalleryItemEl = galleryItems.map(value => value.original);
