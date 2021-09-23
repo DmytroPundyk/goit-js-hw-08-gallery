@@ -1,5 +1,3 @@
-
-
 const refs = {
    galleryContainerEl: document.querySelector(".js-gallery"),
    lightBoxContainerEl: document.querySelector(".js-lightbox"),
@@ -90,7 +88,3 @@ document.addEventListener("keydown", evt => {
   }
   }
 });
-
-
-
-
